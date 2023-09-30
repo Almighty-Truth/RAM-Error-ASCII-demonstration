@@ -1,0 +1,176 @@
+import java.util.*;
+import java.io.*;
+
+
+public class TobiasK_OSpgm2
+{
+    public static String HexToBinary(String hexValue)
+    {
+        String binaryNum = "";
+        for(int i = 0; i < hexValue.length(); i++)
+        {
+            switch(hexValue.charAt(i))
+            {
+                case '0':
+                     binaryNum += "0000";
+                     break;
+                case '1':
+                     binaryNum += "0001";
+                     break;
+                case '2':
+                     binaryNum += "0010";
+                     break;
+                case '3': 
+                     binaryNum += "0011";
+                     break;
+                case '4':
+                     binaryNum += "0100";
+                     break;
+                case '5':
+                     binaryNum += "0101";
+                     break;
+                case '6':
+                     binaryNum += "0110";
+                     break;
+                case '7': 
+                     binaryNum += "0111";
+                     break;
+                case '8':
+                     binaryNum += "1000";
+                     break;
+                case '9':
+                     binaryNum += "1001";
+                     break;
+                case 'A': 
+                     binaryNum += "1010";
+                     break;
+                case 'B':
+                     binaryNum += "1011";
+                     break;
+                case 'C':
+                     binaryNum += "1100";
+                     break;
+                case 'D':
+                     binaryNum += "1101";
+                     break;
+               case 'E':
+                     binaryNum += "1110";
+                     break;
+               case 'F':
+                     binaryNum += "1111";
+                     break;
+            }
+        }
+        return binaryNum;
+    
+    
+    }
+    
+    public static long BinaryToDecimal(String BinaryVal)
+    {
+        long Shows = 0;
+        long Altogether = 0;
+        
+        for(int i = 0; i < BinaryVal.length() - 1; i++)
+        {
+            if(BinaryVal.charAt(i) == '1')
+            {
+                Shows = (long) Math.pow(2, BinaryVal.length() - 1 - i);
+                Altogether += Shows;
+            
+            }
+        }
+        return Altogether;
+    }
+    
+    public static String RamToChip(long ChipNumber)
+    {
+        String chip = " ";
+        
+        if(ChipNumber >= 0 && ChipNumber <= 34359738368L)
+        {
+            chip = "0";
+        }
+        else if(ChipNumber >= 34359738369L && ChipNumber <= 68719476738L)
+        {
+            chip = "1";
+        }
+        else if(ChipNumber >= 68719476739L && ChipNumber <= 103079215108L)
+        {
+            chip = "2";
+        }
+        else if(ChipNumber >= 103079215109L && ChipNumber <= 137438953478L)
+        {
+            chip = "3";
+        }
+        else if(ChipNumber >= 137438953479L && ChipNumber <= 171798691848L)
+        {
+            chip = "4";
+        }
+        else if(ChipNumber >= 171798691849L && ChipNumber <= 206158168588L)
+        {
+            chip = "5";
+        }
+        else if(ChipNumber >= 206158430219L && ChipNumber <= 240518168588L)
+        {
+            chip = "6";
+        }
+        else if(ChipNumber >= 240518168589L && ChipNumber <= 274877906958L)
+        {
+            chip = "7";
+        }
+        else
+        {
+            chip = "N/A";
+        }
+        return chip;
+    }
+    
+    public static void display() throws FileNotFoundException
+    {
+        File NewFile = new File("RAMerrors8x4f.6");
+        Scanner dB = new Scanner (NewFile);
+        System.out.printf("%s %9s %43s %16s %s", "Hex Error", "Binary", "Decimal", "Found at", "\n");
+        String hexValue;
+        String BinaryValue;
+        long DecimalValue;
+        String Chip;
+        
+        while(dB.hasNextLine())
+        {
+            hexValue = dB.nextLine();
+            BinaryValue = HexToBinary(hexValue);
+            DecimalValue = BinaryToDecimal(BinaryValue);
+            Chip = RamToChip(DecimalValue);
+            System.out.printf("%-10s = %-40s = %-13s = %s\n", hexValue, BinaryValue, DecimalValue, Chip);
+        }
+        dB.close();
+    }
+    
+    
+    public static void lowerCase()
+    {
+        for(int i = 97; i <= 122; i++)
+        {
+            System.out.printf("%c = %-4d", (char)i, i);
+        }
+        System.out.printf("%s", "\n");
+    }
+    
+    public static void upperCase()
+    {
+        
+        for(int i = 65; i <= 90; i++)
+        {
+            System.out.printf("%c= %-4d", (char)i,i);
+        }
+        System.out.printf("%s", "\n");
+    }
+    public static void main(String[] args) throws FileNotFoundException
+    {
+        display();
+        lowerCase();
+        upperCase();
+    }
+    
+}
